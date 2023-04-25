@@ -18,13 +18,14 @@ public:
 	string crime;
 	int postalCode;
 	int weight;
-	friend std::ostream& operator<<(std::ostream& os, const Crime& p)
+	friend std::ostream& operator<<(std::ostream& os, const Crime& p) //https://stackoverflow.com/questions/43213902/c-output-all-members-in-a-object
 	{
 		return os << "("
 			<< p.date << ", "
-			<< p.time << ": "
-			<< p.crim << ", "
-			<< p.pstcode
+			<< p.time << ", "
+			<< p.crime << ", "
+			<< p.postalCode << ", "
+			<< p.weight
 			<< ")";
 	}
 
@@ -79,5 +80,6 @@ int main()
 			toSort.push_back(crime);
 		}
 	}
+	cout << "this is the first value in the vector that holds the class" << toSort[1] << endl;
     return 0;
 }
