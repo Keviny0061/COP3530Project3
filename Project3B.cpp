@@ -123,6 +123,8 @@ int main()
 	std::sort(averages.begin(), averages.end(), [](const auto& a, const auto& b) {
 		return a.second < b.second;
 		});
+	cout << "Postal Codes in terms of ascending danger level: \n";
+	cout << "---------------------------------------------------\n";
 	for (const auto& pair : averages) {
 		std::cout << "Postal code " << pair.first << " has an average danger level of " << pair.second << std::endl;
 	}
