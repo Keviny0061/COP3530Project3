@@ -37,53 +37,57 @@ int weightOfSexual;
 int weightOfChildren;
 int weightOfMental;
 void intro() {
-	cout << "Hello! Our program is designed to help you know how safe where you live is!" << endl;
-	cout << "We have options for you to create a custom set of rules to judge how safe each zipcode in Alachua is!" << endl;
-	cout << endl;
-	std::this_thread::sleep_for(dura);
+	cout << "*********************************************************************************************************" << endl;
+	cout << "*               Hello! Our program is designed to help you know how safe where you live is!             *" << endl;
+	cout << "* We have options for you to create a custom set of rules to judge how safe each zipcode in Alachua is! *" << endl;
+	cout << "*                                                                                                       *" << endl;
+	//std::this_thread::sleep_for(dura);
 
-	cout << "We have sorted police reports in Alachua County for the past year and categorized them." << endl;
-	cout << "Here are the categories: " << endl;
-	cout << "Non crimes, Trespassing/disturbing peace, Vehicle related crimes" << endl;
-	std::this_thread::sleep_for(dura);
+	cout << "*                                                                                                       *" << endl;
+	cout << "*         We have sorted police reports in Alachua County for the past year and categorized them.       *" << endl;
+	cout << "*                                         Here are the categories:                                      * " << endl;
+	cout << "*                                     -------------------------------                                   *" << endl;
+	cout << "*                       Non crimes, Trespassing/disturbing peace, Vehicle related crimes                *" << endl;
+	//std::this_thread::sleep_for(dura);
 
-	cout << "Theft, Drug crimes, Physical violence, Sexual charges," << endl;;
-	cout << "Children related, and Mental illness / Dangerous people" << endl;
-	std::this_thread::sleep_for(dura);
+	cout << "*                            Theft, Drug crimes, Physical violence, Sexual charges,                     *" << endl;;
+	cout << "*                           Children related, and Mental illness / Dangerous people                     *" << endl;
+	//std::this_thread::sleep_for(dura);
 
-
-
-	cout << "For example: If you weigh physical violence crimes as 4 and theft as 1" << endl;
-	cout << "We will count every instance of physical violence as 4 times more weighted than theft." << endl;
+	cout << "*                                                                                                       *" << endl;
+	cout << "*                   For example: If you weigh physical violence crimes as 4 and theft as 1              *" << endl;
+	cout << "*           We will count every instance of physical violence as 4 times more weighted than theft.      *" << endl;
+	cout << "*********************************************************************************************************" << endl;
 
 	cout << endl;
 	cout << "You will have the option to input a number for each crime. Based on what you believe is more important, you can weigh as you like." << endl;
+	cout << "------------------------------------------------------------------------------------------------------------------------------------\n";
 
-	cout << "What weight will you assign Non criminal related incidents?" << endl;
+	cout << "What weight will you assign Non criminal related incidents?" << endl << "~";
 	cin >> weightOfNonCrimes;
 
-	cout << "What weight will you assign Trespassing related incidents?" << endl;
+	cout << "What weight will you assign Trespassing related incidents?" << endl << "~";
 	cin >> weightOfTrepassing;
 
-	cout << "What weight will you assign Vehicle related incidents?" << endl;
+	cout << "What weight will you assign Vehicle related incidents?" << endl << "~";
 	cin >> weightOfVehicle;
 
-	cout << "What weight will you assign Theft related incidents?" << endl;
+	cout << "What weight will you assign Theft related incidents?" << endl << "~";
 	cin >> weightOfTheft;
 
-	cout << "What weight will you assign Drug related incidents?" << endl;
+	cout << "What weight will you assign Drug related incidents?" << endl << "~";
 	cin >> weightOfDrug;
 
-	cout << "What weight will you assign Physical Violence related incidents?" << endl;
+	cout << "What weight will you assign Physical Violence related incidents?" << endl << "~";
 	cin >> weightOfPhysical;
 
-	cout << "What weight will you assign Sexual related incidents?" << endl;
+	cout << "What weight will you assign Sexual related incidents?" << endl << "~";
 	cin >> weightOfSexual;
 
-	cout << "What weight will you assign Children related incidents?" << endl;
+	cout << "What weight will you assign Children related incidents?" << endl << "~";
 	cin >> weightOfChildren;
 
-	cout << "What weight will you assign Mental Illness related incidents?" << endl;
+	cout << "What weight will you assign Mental Illness related incidents?" << endl << "~";
 	cin >> weightOfVehicle;
 	cout << endl;
 }
