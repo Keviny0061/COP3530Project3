@@ -13,7 +13,7 @@
 #include <chrono>
 #include <thread>
 #include "functions.h"
-using namespace std;
+using namespace std::chrono;
 
 
 int main()
