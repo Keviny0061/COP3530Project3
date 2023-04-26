@@ -81,9 +81,12 @@ int main()
 			toSort.push_back(crime);
 		}
 	}
-	cout << "starting quick sort" << endl;
+	
+	auto begin = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
 	quicksort(toSort, 0, toSort.size() - 1);
-	cout << "done quick sort" << endl;
+	auto end = high_resolution_clock::now();
+	auto Qtime = duration_cast<microseconds>(end - begin);
+	cout << "Quick Sort Completed in: " << (double)Qtime.count()/1000 << " milliseconds\n\n";
 
 	/*cout << "starting merge sort";
 	mergeSort(toSort2, 0, toSort.size()-1);
