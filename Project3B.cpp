@@ -15,118 +15,176 @@
 #include "functions.h"
 using namespace std::chrono;
 
+void merge(vector<Crime>& arr, int leftIndex, int middleIndex, int rightIndex)
+{
+    int leftSize = middleIndex - leftIndex + 1;
+    int rightSize = rightIndex - middleIndex;
+
+    vector<Crime> leftArray(leftSize);
+    vector<Crime> rightArray(rightSize);
+
+    for (int i = 0; i < leftSize; i++)
+        leftArray[i] = arr[leftIndex + i];
+    for (int j = 0; j < rightSize; j++)
+        rightArray[j] = arr[middleIndex + 1 + j];
+
+    int i = 0;
+    int j = 0;
+    int k = leftIndex;
+
+    while (i < leftSize && j < rightSize) {
+        if (leftArray[i].postalCode <= rightArray[j].postalCode) {
+            arr[k] = leftArray[i];
+            i++;
+        }
+        else {
+            arr[k] = rightArray[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < leftSize) {
+        arr[k] = leftArray[i];
+        i++;
+        k++;
+    }
+
+    while (j < rightSize) {
+        arr[k] = rightArray[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(vector<Crime>& arr, int leftIndex, int rightIndex)
+{
+    if (leftIndex >= rightIndex) {
+        return;
+    }
+    int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
+    mergeSort(arr, leftIndex, middleIndex);
+    mergeSort(arr, middleIndex + 1, rightIndex);
+    merge(arr, leftIndex, middleIndex, rightIndex);
+}
 
 int main()
 {
-	intro();
+    intro();
 
-	getData("Jan_Mar_2023_Alachua_County_Sheriff's_Office_report.csv");
-	getData("Oct_Dec_2022_Alachua_County_Sheriff's_Office_report.csv");
-	getData("Jul_Sep_2022_Alachua_County_Sheriff's_Office_report (1).csv");
-	getData("Apr_Jun_2022_Alachua_County_Sheriff's_Office_report.csv");
+    getData("Jan_Mar_2023_Alachua_County_Sheriff's_Office_report.csv");
+    getData("Oct_Dec_2022_Alachua_County_Sheriff's_Office_report.csv");
+    getData("Jul_Sep_2022_Alachua_County_Sheriff's_Office_report (1).csv");
+    getData("Apr_Jun_2022_Alachua_County_Sheriff's_Office_report.csv");
 
 
-	int rows = 0;
-	int validCrimes = 0;
-	vector <string> typesOfCrimes;
-	for (int i = 1; i < 57000; i++) { //215000
+    int rows = 0;
+    int validCrimes = 0;
+    vector <string> typesOfCrimes;
+    for (int i = 1; i < 57000; i++) { //215000
 
-		if (find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()) //https://stackoverflow.com/questions/6277646/in-c-check-if-stdvectorstring-contains-a-certain-value
-		{
+        if (find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()) //https://stackoverflow.com/questions/6277646/in-c-check-if-stdvectorstring-contains-a-certain-value
+        {
 
-		}
-		else {
-			typesOfCrimes.push_back(content[i][9]);
-		}
-	}
-	
-	for (int i = 1; i < 20000; i++) { //210000
-		if (content[i][7] != "." && find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()){ //if the crime has a known post code and type of crime
-			
-			Crime crime;
-			crime.date = content[i][1];
-			crime.time = content[i][2];
-			crime.crime = getCrimeType(content[i][9]);
-			crime.postalCode = stoi(content[i][7]);
-			if (crime.crime == "False calls/unknown/non crimes") {
-				crime.weight = weightOfNonCrimes;
-			}
-			else if (crime.crime == "Sexual charges") {
-				crime.weight = weightOfSexual;
-			}
-			else if(crime.crime == "Drug crimes") {
-				crime.weight = weightOfDrug;
-			}
-			else if (crime.crime == "Vehicle related crimes") {
-				crime.weight = weightOfVehicle;
-			}
-			else if (crime.crime == "Theft") {
-				crime.weight == weightOfTheft;
-			}
-			else if (crime.crime == "Children related") {
-				crime.weight == weightOfChildren;
-			}
-			else if (crime.crime == "Physical violence") {
-				crime.weight == weightOfPhysical;
-			}
-			else if (crime.crime == "Mental illness/Dangerous people") {
-				crime.weight == weightOfMental;
-			}
-			else if (crime.crime == "Trespassing/disturbing peace") {
-				crime.weight == weightOfTrepassing;
-			}
-			else {
-			crime.weight = 0;
-			}
-			toSort.push_back(crime);
-		}
-	}
-	
-	auto begin = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
-	quicksort(toSort, 0, toSort.size() - 1);
-	auto end = high_resolution_clock::now();
-	auto Qtime = duration_cast<microseconds>(end - begin);
-	cout << "Quick Sort Completed in: " << (double)Qtime.count()/1000 << " milliseconds\n\n";
+        }
+        else {
+            typesOfCrimes.push_back(content[i][9]);
+        }
+    }
 
-	/*cout << "starting merge sort";
-	mergeSort(toSort2, 0, toSort.size()-1);
-	for(int i = 0; i<toSort2.size();i++)
-	{
-		cout << toSort2[i].postalCode;
-	}*/
+    for (int i = 1; i < 20000; i++) { //210000
+        if (content[i][7] != "." && find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()){ //if the crime has a known post code and type of crime
 
-	map<int, vector<int>> dangerOfPostalCode;
+            Crime crime;
+            crime.date = content[i][1];
+            crime.time = content[i][2];
+            crime.crime = getCrimeType(content[i][9]);
+            crime.postalCode = stoi(content[i][7]);
+            if (crime.crime == "False calls/unknown/non crimes") {
+                crime.weight = weightOfNonCrimes;
+            }
+            else if (crime.crime == "Sexual charges") {
+                crime.weight = weightOfSexual;
+            }
+            else if(crime.crime == "Drug crimes") {
+                crime.weight = weightOfDrug;
+            }
+            else if (crime.crime == "Vehicle related crimes") {
+                crime.weight = weightOfVehicle;
+            }
+            else if (crime.crime == "Theft") {
+                crime.weight == weightOfTheft;
+            }
+            else if (crime.crime == "Children related") {
+                crime.weight == weightOfChildren;
+            }
+            else if (crime.crime == "Physical violence") {
+                crime.weight == weightOfPhysical;
+            }
+            else if (crime.crime == "Mental illness/Dangerous people") {
+                crime.weight == weightOfMental;
+            }
+            else if (crime.crime == "Trespassing/disturbing peace") {
+                crime.weight == weightOfTrepassing;
+            }
+            else {
+                crime.weight = 0;
+            }
+            toSort.push_back(crime);
+        }
+    }
 
-	for (int i = 0; i < toSort.size(); i++) {
-		//if (i % 1000 == 999) {
-			//cout << "added " << i << endl;
-		//}
-		if (dangerOfPostalCode.find(toSort[i].postalCode) == dangerOfPostalCode.end()) { //https://stackoverflow.com/questions/1939953/how-to-find-if-a-given-key-exists-in-a-c-stdmap
-			dangerOfPostalCode.insert({ toSort[i].postalCode,{toSort[i].weight} });
-		}
-		else {
-			dangerOfPostalCode[toSort[i].postalCode].push_back(toSort[i].weight);
-		}
-	}
-	
-	std::vector<std::pair<int, double>> averages;
-	for (const auto& entry : dangerOfPostalCode) { //this finds the average crime weight for each zipcode and prints it out
-		int postalCode = entry.first;
-		const std::vector<int>& dangerLevels = entry.second;
-		double sum = 0;
-		for (int dangerLevel : dangerLevels) {
-			sum += dangerLevel;
-		}
-		double average = sum / dangerLevels.size();
-		averages.push_back({ postalCode, average });
-	}
-	std::sort(averages.begin(), averages.end(), [](const auto& a, const auto& b) {
-		return a.second < b.second;
-		});
-	cout << "Postal Codes in terms of ascending danger level: \n";
-	cout << "---------------------------------------------------\n";
-	for (const auto& pair : averages) {
-		std::cout << "Postal code " << pair.first << " has an average danger level of " << pair.second << std::endl;
-	}
+    auto begin = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
+    quicksort(toSort, 0, toSort.size() - 1);
+    auto end = high_resolution_clock::now();
+    auto Qtime = duration_cast<microseconds>(end - begin);
+    cout << "Quick Sort Completed in: " << (double)Qtime.count()/1000 << " milliseconds\n\n";
+
+//    auto begin = high_resolution_clock::now();
+//    mergeSort(toSort, 0, toSort.size() - 1);
+//    auto end = high_resolution_clock::now();
+//    auto Qtime = duration_cast<microseconds>(end - begin);
+//    cout << "Merge Sort Completed in: " << (double)Qtime.count()/1000 << " milliseconds\n\n";
+
+//    cout << "starting merge sort";
+//    mergeSort(toSort2, 0, toSort.size()-1);
+//    for(int i = 0; i<toSort2.size();i++)
+//    {
+//        cout << toSort2[i].postalCode;
+//    }
+
+    map<int, vector<int>> dangerOfPostalCode;
+
+    for (int i = 0; i < toSort.size(); i++) {
+        //if (i % 1000 == 999) {
+        //cout << "added " << i << endl;
+        //}
+        if (dangerOfPostalCode.find(toSort[i].postalCode) == dangerOfPostalCode.end()) { //https://stackoverflow.com/questions/1939953/how-to-find-if-a-given-key-exists-in-a-c-stdmap
+            dangerOfPostalCode.insert({ toSort[i].postalCode,{toSort[i].weight} });
+        }
+        else {
+            dangerOfPostalCode[toSort[i].postalCode].push_back(toSort[i].weight);
+        }
+    }
+
+    std::vector<std::pair<int, double>> averages;
+    for (const auto& entry : dangerOfPostalCode) { //this finds the average crime weight for each zipcode and prints it out
+        int postalCode = entry.first;
+        const std::vector<int>& dangerLevels = entry.second;
+        double sum = 0;
+        for (int dangerLevel : dangerLevels) {
+            sum += dangerLevel;
+        }
+        double average = sum / dangerLevels.size();
+        averages.push_back({ postalCode, average });
+    }
+    std::sort(averages.begin(), averages.end(), [](const auto& a, const auto& b) {
+        return a.second < b.second;
+    });
+    cout << "Postal Codes in terms of ascending danger level: \n";
+    cout << "---------------------------------------------------\n";
+    for (const auto& pair : averages) {
+        std::cout << "Postal code " << pair.first << " has an average danger level of " << pair.second << std::endl;
+    }
     return 0;
 }
