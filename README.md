@@ -1,4 +1,6 @@
-COP3530 Final Project: Area Danger Levels
+COP3530 Final Project: 
+---------------------------
+Area Danger Levels
 
 Our program aims to provide a measurement of how safe where you live is in Alachua County!
 
@@ -6,5 +8,7 @@ The program sorts police reports in Alachua County for the past year and has the
 
 The program uses quick sort, merge sort, and introsort algorithims on the dataset to demonstrate and compare how effecienct each sort is.
 
+
 To run the program:
+---------------------------
 Download the zip folder or clone the repo and run the files from the folder.
