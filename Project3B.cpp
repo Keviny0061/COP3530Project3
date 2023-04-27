@@ -103,7 +103,7 @@ int main()
     sort(toSort3.begin(), toSort3.end());
     auto end2 = high_resolution_clock::now();
     auto sortTime = duration_cast<microseconds>(end2 - begin2);
-    cout << "C++ inbuilt Sort Algorithim Completed in: " << (double)sortTime.count() / 1000 << " milliseconds\n\n";
+    cout << "C++ inbuilt Sort Algorithim that uses IntroSort Completed in: " << (double)sortTime.count() / 1000 << " milliseconds\n\n";
 
     //outputs the fastest sort and how much faster relative to the other two
     comparison((double)Mtime.count()/1000, (double)Qtime.count()/1000, (double)sortTime.count()/1000);
