@@ -28,7 +28,7 @@ int main()
     int rows = 0;
     int validCrimes = 0;
     vector <string> typesOfCrimes;
-    for (int i = 1; i < 57000; i++) { //215000
+    for (int i = 1; i < 57000; i++) {
 
         if (find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()) //https://stackoverflow.com/questions/6277646/in-c-check-if-stdvectorstring-contains-a-certain-value
         {
@@ -39,7 +39,7 @@ int main()
         }
     }
 
-    for (int i = 1; i < 20000; i++) { //210000
+    for (int i = 1; i < 210000; i++) { //210000
         if (content[i][7] != "." && find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()) { //if the crime has a known post code and type of crime
 
             Crime crime;
@@ -142,7 +142,7 @@ int main()
     }
     std::sort(averages.begin(), averages.end(), [](const auto& a, const auto& b) {
         return a.second < b.second;
-    });
+        });
     cout << "Postal Codes in terms of ascending danger level: \n";
     cout << "---------------------------------------------------\n";
     for (const auto& pair : averages) {
