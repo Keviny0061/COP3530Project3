@@ -98,7 +98,7 @@ int main()
     auto Mtime = duration_cast<microseconds>(end1 - begin1);
     cout << "Merge Sort Completed in: " << (double)Mtime.count()/1000 << " milliseconds\n\n";
 
-    //execution time of C++ inbuilt Sort Algorithim
+    //execution time of C++ inbuilt Sort Algorithim that uses IntroSort approved by Professor Aman
     auto begin2 = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
     sort(toSort3.begin(), toSort3.end());
     auto end2 = high_resolution_clock::now();
