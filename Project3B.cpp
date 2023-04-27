@@ -40,7 +40,7 @@ int main()
     }
 
     for (int i = 1; i < 20000; i++) { //210000
-        if (content[i][7] != "." && find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()){ //if the crime has a known post code and type of crime
+        if (content[i][7] != "." && find(typesOfCrimes.begin(), typesOfCrimes.end(), content[i][9]) != typesOfCrimes.end()) { //if the crime has a known post code and type of crime
 
             Crime crime;
             crime.date = content[i][1];
@@ -53,26 +53,26 @@ int main()
             else if (crime.crime == "Sexual charges") {
                 crime.weight = weightOfSexual;
             }
-            else if(crime.crime == "Drug crimes") {
+            else if (crime.crime == "Drug crimes") {
                 crime.weight = weightOfDrug;
             }
             else if (crime.crime == "Vehicle related crimes") {
                 crime.weight = weightOfVehicle;
             }
             else if (crime.crime == "Theft") {
-                crime.weight == weightOfTheft;
+                crime.weight = weightOfTheft;
             }
             else if (crime.crime == "Children related") {
-                crime.weight == weightOfChildren;
+                crime.weight = weightOfChildren;
             }
             else if (crime.crime == "Physical violence") {
-                crime.weight == weightOfPhysical;
+                crime.weight = weightOfPhysical;
             }
             else if (crime.crime == "Mental illness/Dangerous people") {
-                crime.weight == weightOfMental;
+                crime.weight = weightOfMental;
             }
             else if (crime.crime == "Trespassing/disturbing peace") {
-                crime.weight == weightOfTrepassing;
+                crime.weight = weightOfTrepassing;
             }
             else {
                 crime.weight = 0;
@@ -81,24 +81,27 @@ int main()
         }
     }
 
+    vector <Crime> toSort2 = toSort;
     auto begin = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
     quicksort(toSort, 0, toSort.size() - 1);
     auto end = high_resolution_clock::now();
     auto Qtime = duration_cast<microseconds>(end - begin);
-    cout << "Quick Sort Completed in: " << (double)Qtime.count()/1000 << " milliseconds\n\n";
+    cout << "Quick Sort Completed in: " << (double)Qtime.count() / 1000 << " milliseconds\n\n";
 
-//    auto begin = high_resolution_clock::now();
-//    mergeSort(toSort, 0, toSort.size() - 1);
-//    auto end = high_resolution_clock::now();
-//    auto Qtime = duration_cast<microseconds>(end - begin);
-//    cout << "Merge Sort Completed in: " << (double)Qtime.count()/1000 << " milliseconds\n\n";
+    auto start = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
+    mergeSort(toSort2, 0, toSort2.size() - 1);
+    auto stop = high_resolution_clock::now();
+    auto Mtime = duration_cast<microseconds>(stop - start);
+    cout << "Merge Sort Completed in: " << (double)Mtime.count()/1000 << " milliseconds\n\n";
 
-//    cout << "starting merge sort";
-//    mergeSort(toSort2, 0, toSort.size()-1);
-//    for(int i = 0; i<toSort2.size();i++)
-//    {
-//        cout << toSort2[i].postalCode;
-//    }
+    comparison((double)Mtime.count() / 1000, (double)Qtime.count()/1000);
+
+    //    cout << "starting merge sort";
+    //    mergeSort(toSort2, 0, toSort.size()-1);
+    //    for(int i = 0; i<toSort2.size();i++)
+    //    {
+    //        cout << toSort2[i].postalCode;
+    //    }
 
     map<int, vector<int>> dangerOfPostalCode;
 
@@ -127,7 +130,7 @@ int main()
     }
     std::sort(averages.begin(), averages.end(), [](const auto& a, const auto& b) {
         return a.second < b.second;
-    });
+        });
     cout << "Postal Codes in terms of ascending danger level: \n";
     cout << "---------------------------------------------------\n";
     for (const auto& pair : averages) {
