@@ -19,6 +19,10 @@ public:
 			<< p.weight
 			<< ")";
 	}
+	bool operator < (const Crime& area) const //https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
+	{
+		return (postalCode < area.postalCode);
+	}
 };
 
 vector <Crime> toSort;
@@ -260,14 +264,21 @@ string getCrimeType(string crimeCode) {
 	}
 }
 
-void comparison(double Mtime, double Qtime)
+void comparison(double Mtime, double Qtime, double sortTime)
 {
-	if (Mtime > Qtime)
+	if (Mtime > Qtime && Qtime < sortTime)
 	{
-		cout << "Quick sort was " << Mtime / Qtime << " times faster than Merge sort on our dataset\n\n";
+		cout << "Quick sort was " << Mtime / Qtime << " times faster than Merge sort on our dataset\n";
+		cout << "Quick sort was " << sortTime / Qtime << " times faster than C++ inbuilt Sort Algorithim on our dataset\n\n";
+	}
+	else if(Qtime > Mtime && Mtime < sortTime)
+	{
+		cout << "Merge sort was " << Qtime/Mtime << " times faster than Quick sort on our dataset\n";
+		cout << "Merge sort was " << sortTime / Mtime << " times faster than C++ inbuilt Sort Algorithim on our dataset\n\n";
 	}
 	else
 	{
-		cout << "Merge sort was " << Qtime/Mtime << " times faster than Quick sort on our dataset\n\n";
+		cout << "C++ inbuilt Sort Algorithim was " << Qtime / sortTime << " times faster than Quick sort on our dataset\n";
+		cout << "C++ inbuilt Sort Algorithim was " << Mtime / sortTime << " times faster than Merge sort on our dataset\n\n";
 	}
 }
