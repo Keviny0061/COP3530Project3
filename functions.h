@@ -2,7 +2,7 @@
 #include <vector> 
 using namespace std;
 
-class Crime {
+class Crime {//crime class to contain all associated data from the documents
 public:
 	string date;
 	string time;
@@ -19,13 +19,17 @@ public:
 			<< p.weight
 			<< ")";
 	}
+	bool operator < (const Crime& area) const //https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects
+	{
+		return (postalCode < area.postalCode); //for sort algorithim to sort class based on postal code
+	}
 };
 
 vector <Crime> toSort;
 vector<vector<string>> content; //this is where all the information is stored
 vector<string> row; //this represents all the information in each row of the csv file
 
-std::chrono::seconds dura(1);
+//variables to contain user input
 int weightOfNonCrimes;
 int weightOfTrepassing;
 int weightOfVehicle;
@@ -35,7 +39,7 @@ int weightOfPhysical;
 int weightOfSexual;
 int weightOfChildren;
 int weightOfMental;
-void intro() {
+void intro() { //outputs the beginning intro dialogue
 	cout << "*********************************************************************************************************" << endl;
 	cout << "*               Hello! Our program is designed to help you know how safe where you live is!             *" << endl;
 	cout << "* We have options for you to create a custom set of rules to judge how safe each zipcode in Alachua is! *" << endl;
@@ -91,7 +95,7 @@ void intro() {
 	cout << endl;
 }
 
-int partition(vector<Crime>& values, int left, int right) {
+int partition(vector<Crime>& values, int left, int right) {//for quick sort partitions
 	int pivotIndex = left + (right - left) / 2;
 	int pivotValue = values[pivotIndex].postalCode;
 	int i = left, j = right;
@@ -122,7 +126,7 @@ void quicksort(vector<Crime>& values, int left, int right) {
 	}
 }
 
-void merge(vector<Crime>& arr, int leftIndex, int middleIndex, int rightIndex)
+void merge(vector<Crime>& arr, int leftIndex, int middleIndex, int rightIndex) //for merge sort merge two sub vectors
 {
 	int leftSize = middleIndex - leftIndex + 1;
 	int rightSize = rightIndex - middleIndex;
@@ -203,7 +207,7 @@ void getData(string filename) { //push all the data from the file into our vecto
 	}
 }
 
-string getCrimeType(string crimeCode) {
+string getCrimeType(string crimeCode) { //outputs the associated Crime type from counter # 
 	fstream new_file;//https://www.scaler.com/topics/cpp-read-file-line-by-line/
 	new_file.open("crimeClassification.txt", ios::in);
 	int counter = 0;
@@ -260,14 +264,24 @@ string getCrimeType(string crimeCode) {
 	}
 }
 
-void comparison(double Mtime, double Qtime)
+void comparison(double Mtime, double Qtime, double sortTime) //compares the execution time to output the fastest sort algo and how much faster
 {
-	if (Mtime > Qtime)
+	if (Mtime > Qtime && Qtime < sortTime)
 	{
-		cout << "Quick sort was " << Mtime / Qtime << " times faster than Merge sort on our dataset\n\n";
+		cout << "Quick sort was the fastest sort of the three!\n";
+		cout << "Quick sort was " << Mtime / Qtime << " times faster than Merge sort on our dataset\n";
+		cout << "Quick sort was " << sortTime / Qtime << " times faster than C++ inbuilt Sort Algorithim on our dataset\n\n";
+	}
+	else if(Qtime > Mtime && Mtime < sortTime)
+	{
+		cout << "Merge sort was the fastest sort of the three!";
+		cout << "Merge sort was " << Qtime/Mtime << " times faster than Quick sort on our dataset\n";
+		cout << "Merge sort was " << sortTime / Mtime << " times faster than C++ inbuilt Sort Algorithim on our dataset\n\n";
 	}
 	else
 	{
-		cout << "Merge sort was " << Qtime/Mtime << " times faster than Quick sort on our dataset\n\n";
+		cout << "C++ inbuilt Sort Algorithim was the fastest sort of the three!\n";
+		cout << "C++ inbuilt Sort Algorithim was " << Qtime / sortTime << " times faster than Quick sort on our dataset\n";
+		cout << "C++ inbuilt Sort Algorithim was " << Mtime / sortTime << " times faster than Merge sort on our dataset\n\n";
 	}
 }
