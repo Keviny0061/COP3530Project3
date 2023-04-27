@@ -22,7 +22,6 @@ public:
 };
 
 vector <Crime> toSort;
-vector <Crime> toSort2 = toSort;
 vector<vector<string>> content; //this is where all the information is stored
 vector<string> row; //this represents all the information in each row of the csv file
 
@@ -125,55 +124,55 @@ void quicksort(vector<Crime>& values, int left, int right) {
 
 void merge(vector<Crime>& arr, int leftIndex, int middleIndex, int rightIndex)
 {
-    int leftSize = middleIndex - leftIndex + 1;
-    int rightSize = rightIndex - middleIndex;
+	int leftSize = middleIndex - leftIndex + 1;
+	int rightSize = rightIndex - middleIndex;
 
-    vector<Crime> leftArray(leftSize);
-    vector<Crime> rightArray(rightSize);
+	vector<Crime> leftArray(leftSize);
+	vector<Crime> rightArray(rightSize);
 
-    for (int i = 0; i < leftSize; i++)
-        leftArray[i] = arr[leftIndex + i];
-    for (int j = 0; j < rightSize; j++)
-        rightArray[j] = arr[middleIndex + 1 + j];
+	for (int i = 0; i < leftSize; i++)
+		leftArray[i] = arr[leftIndex + i];
+	for (int j = 0; j < rightSize; j++)
+		rightArray[j] = arr[middleIndex + 1 + j];
 
-    int i = 0;
-    int j = 0;
-    int k = leftIndex;
+	int i = 0;
+	int j = 0;
+	int k = leftIndex;
 
-    while (i < leftSize && j < rightSize) {
-        if (leftArray[i].postalCode <= rightArray[j].postalCode) {
-            arr[k] = leftArray[i];
-            i++;
-        }
-        else {
-            arr[k] = rightArray[j];
-            j++;
-        }
-        k++;
-    }
+	while (i < leftSize && j < rightSize) {
+		if (leftArray[i].postalCode <= rightArray[j].postalCode) {
+			arr[k] = leftArray[i];
+			i++;
+		}
+		else {
+			arr[k] = rightArray[j];
+			j++;
+		}
+		k++;
+	}
 
-    while (i < leftSize) {
-        arr[k] = leftArray[i];
-        i++;
-        k++;
-    }
+	while (i < leftSize) {
+		arr[k] = leftArray[i];
+		i++;
+		k++;
+	}
 
-    while (j < rightSize) {
-        arr[k] = rightArray[j];
-        j++;
-        k++;
-    }
+	while (j < rightSize) {
+		arr[k] = rightArray[j];
+		j++;
+		k++;
+	}
 }
 
 void mergeSort(vector<Crime>& arr, int leftIndex, int rightIndex)
 {
-    if (leftIndex >= rightIndex) {
-        return;
-    }
-    int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
-    mergeSort(arr, leftIndex, middleIndex);
-    mergeSort(arr, middleIndex + 1, rightIndex);
-    merge(arr, leftIndex, middleIndex, rightIndex);
+	if (leftIndex >= rightIndex) {
+		return;
+	}
+	int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
+	mergeSort(arr, leftIndex, middleIndex);
+	mergeSort(arr, middleIndex + 1, rightIndex);
+	merge(arr, leftIndex, middleIndex, rightIndex);
 }
 
 void print(std::vector <string> const& a) { //this is a test to print out vectors
@@ -258,5 +257,17 @@ string getCrimeType(string crimeCode) {
 	else {
 		string returnInfo = "Trespassing/disturbing peace";
 		return returnInfo;
+	}
+}
+
+void comparison(double Mtime, double Qtime)
+{
+	if (Mtime > Qtime)
+	{
+		cout << "Quick sort was " << Mtime / Qtime << " times faster than Merge sort on our dataset\n\n";
+	}
+	else
+	{
+		cout << "Merge sort was " << Qtime/Mtime << " times faster than Quick sort on our dataset\n\n";
 	}
 }
