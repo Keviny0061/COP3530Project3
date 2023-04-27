@@ -15,59 +15,6 @@
 #include "functions.h"
 using namespace std::chrono;
 
-void merge(vector<Crime>& arr, int leftIndex, int middleIndex, int rightIndex)
-{
-    int leftSize = middleIndex - leftIndex + 1;
-    int rightSize = rightIndex - middleIndex;
-
-    vector<Crime> leftArray(leftSize);
-    vector<Crime> rightArray(rightSize);
-
-    for (int i = 0; i < leftSize; i++)
-        leftArray[i] = arr[leftIndex + i];
-    for (int j = 0; j < rightSize; j++)
-        rightArray[j] = arr[middleIndex + 1 + j];
-
-    int i = 0;
-    int j = 0;
-    int k = leftIndex;
-
-    while (i < leftSize && j < rightSize) {
-        if (leftArray[i].postalCode <= rightArray[j].postalCode) {
-            arr[k] = leftArray[i];
-            i++;
-        }
-        else {
-            arr[k] = rightArray[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i < leftSize) {
-        arr[k] = leftArray[i];
-        i++;
-        k++;
-    }
-
-    while (j < rightSize) {
-        arr[k] = rightArray[j];
-        j++;
-        k++;
-    }
-}
-
-void mergeSort(vector<Crime>& arr, int leftIndex, int rightIndex)
-{
-    if (leftIndex >= rightIndex) {
-        return;
-    }
-    int middleIndex = leftIndex + (rightIndex - leftIndex) / 2;
-    mergeSort(arr, leftIndex, middleIndex);
-    mergeSort(arr, middleIndex + 1, rightIndex);
-    merge(arr, leftIndex, middleIndex, rightIndex);
-}
-
 int main()
 {
     intro();
