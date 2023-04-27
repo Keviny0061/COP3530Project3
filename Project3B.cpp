@@ -81,27 +81,35 @@ int main()
         }
     }
 
-    vector <Crime> toSort2 = toSort;
+    vector <Crime> toSort2 = toSort; //for Merge sort
+    vector <Crime> toSort3 = toSort; //for c++ inbuilt sort algo
+
     auto begin = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
     quicksort(toSort, 0, toSort.size() - 1);
     auto end = high_resolution_clock::now();
     auto Qtime = duration_cast<microseconds>(end - begin);
     cout << "Quick Sort Completed in: " << (double)Qtime.count() / 1000 << " milliseconds\n\n";
-
+    
     auto start = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
     mergeSort(toSort2, 0, toSort2.size() - 1);
     auto stop = high_resolution_clock::now();
     auto Mtime = duration_cast<microseconds>(stop - start);
     cout << "Merge Sort Completed in: " << (double)Mtime.count()/1000 << " milliseconds\n\n";
 
-    comparison((double)Mtime.count() / 1000, (double)Qtime.count()/1000);
+    auto start1 = high_resolution_clock::now(); //https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
+    sort(toSort3.begin(), toSort3.end());
+    auto stop1 = high_resolution_clock::now();
+    auto sortTime = duration_cast<microseconds>(stop1 - start1);
+    cout << "C++ inbuilt Sort Algorithim Completed in: " << (double)sortTime.count() / 1000 << " milliseconds\n\n";
 
-    //    cout << "starting merge sort";
-    //    mergeSort(toSort2, 0, toSort.size()-1);
-    //    for(int i = 0; i<toSort2.size();i++)
-    //    {
-    //        cout << toSort2[i].postalCode;
-    //    }
+    comparison((double)Mtime.count()/1000, (double)Qtime.count()/1000, (double)sortTime.count()/1000);
+
+    /*cout << "starting merge sort";
+    mergeSort(toSort2, 0, toSort.size()-1);
+    for(int i = 0; i<toSort2.size();i++)
+    {
+        cout << toSort2[i].postalCode << endl;
+    }*/
 
     map<int, vector<int>> dangerOfPostalCode;
 
