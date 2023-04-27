@@ -1,3 +1,0 @@
-C:/Users/zayna/CLionProjects/Project3b/cmake-build-debug/CMakeFiles/Project3b.dir
-C:/Users/zayna/CLionProjects/Project3b/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/zayna/CLionProjects/Project3b/cmake-build-debug/CMakeFiles/rebuild_cache.dir
