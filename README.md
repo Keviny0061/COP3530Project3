@@ -15,8 +15,7 @@ Download the folder and navigate to where you saved it to run Project3B.exe
 
 Sample of how to run:
 ---------------------------
-Open Command Line
-CD into download location, for me it is in my downloads folder:
+Open Command Line and CD into the download location, for me it is in my downloads folder:
 
 ![image](https://user-images.githubusercontent.com/44207973/235014179-1dff8a3b-71e7-402b-b26d-7100e236eb63.png)
 
