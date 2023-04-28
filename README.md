@@ -11,7 +11,7 @@ The program uses quick sort, merge sort, and introsort algorithims on the datase
 
 To run the program:
 ---------------------------
-Download Project3B.exe and run it!
+Download the folder and navigate to where you saved it to run Project3B.exe
 
 Sample of how to run:
 ---------------------------
