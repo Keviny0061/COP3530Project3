@@ -74,7 +74,7 @@ public final class Lexer {
     }
 
     public Token lexNumber() {
-        //check if number is after .
+        // Check if number is after .
         if (chars.input.contains(".")) {
             int num = chars.input.indexOf(".") + 1;
             int num2 = chars.input.length();
@@ -84,12 +84,32 @@ public final class Lexer {
                     return lexDecimal();
             }
         }
-        match("[1-9-]");
-        while (peek("[1-9]")) {
-            match("[1-9]");
+
+        // Check for negative sign
+        boolean negative = false;
+        if (peek("-")) {
+            match("-");
+            negative = true;
         }
-        return chars.emit(Token.Type.INTEGER);
+
+        // Check for leading '0'
+        if (peek("0")) {
+            match("0");
+            return chars.emit(Token.Type.INTEGER);
+        }
+
+        match("[1-9]");
+        while (peek("[0-9]")) {
+            match("[0-9]");
+        }
+
+        if (negative) {
+            return chars.emit(Token.Type.INTEGER);
+        } else {
+            return chars.emit(Token.Type.INTEGER);
+        }
     }
+
 
     public Token lexDecimal() {
         match("[0-9-]");
