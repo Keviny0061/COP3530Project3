@@ -442,7 +442,27 @@ void testExceptionInvalidExpression(String test, List<Token> tokens, ParseExcept
                         new ParseException("Invalid Expression", 0))
         );
     }
-   
+    @ParameterizedTest
+    @MethodSource
+    void testExpressionStatementWithSemicolon(String test, List<Token> tokens, Ast.Statement expected) {
+        test(tokens, expected, Parser::parseStatement);
+    }
+
+    private static Stream<Arguments> testExpressionStatementWithSemicolon() {
+        return Stream.of(
+                Arguments.of("Simple Expression Statement",
+                        Arrays.asList(
+                                // Example: expr;
+                                new Token(Token.Type.IDENTIFIER, "expr", 0),
+                                new Token(Token.Type.OPERATOR, ";", 4)
+                        ),
+                        new Ast.Statement.Expression(
+                                new Ast.Expression.Access(Optional.empty(), "expr")
+                        )
+                )
+        );
+    }
+
 
 
     /**
